@@ -1,0 +1,56 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIDAS</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/b2f007fa24.js" crossorigin="anonymous"></script>
+</head>
+
+<body style="background-image: url('/images/bg1.jpg'); background-repeat:no-repeat; background-size:cover">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div>
+                <nav class="navbar navbar-expand-lg navbar-light ">
+                    <div class="container-fluid ">
+                        <a class="navbar-brand " href="/"><img src="/images/logo.png" width="140" height="140" class="d-inline-block align-top img-fluid" alt="logo"></a>
+                 
+                        <div class="collapse navbar-collapse m-2 " id="navbarText">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link text-style" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 16px ; color: rgb(0, 0, 0);font-style: Rubik;">
+              Home
+              <i class="fas fa-angle-down"></i>
+            </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item text-style" href="#">Section-1</a>
+                                        <a class="dropdown-item text-style" href="#">Section-2</a>
+                                    </div>
+                                </li>
+                         
+                                <li class="nav-item">
+                                    <% if(user){ %>
+                                        <a class="nav-link text-style" href="Contacts" style="font-size: 16px ; color: rgb(0, 0, 0);font-style: Rubik;">Contacts <i class="fas fa-lock-open"></i></a>
+                                        <% } else { %>
+                                            <a class="nav-link text-style" href="Contacts" style="font-size: 16px ; color: rgb(0, 0, 0);font-style: Rubik;">Contacts <i class="fas fa-lock"></i></a>
+                                            <% } %>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+                    <% if (!user){ %>
+                        <div style="float: right"><span class="p-2"><a  style="border-style: solid;border-color:#000000;border-bottom-width:1px;border-top-width:0px;border-right-width:0px;border-left-width:0px;text-decoration: none;color:#000000;font-size:14px;font-family:sans-serif;font-style: Rubik;" href="/login"><b>LOGIN</b></a>|<a  style="border-style: solid;border-color:#000000;border-bottom-width:1px;border-top-width:0px;border-right-width:0px;border-left-width:0px;text-decoration: none;color:#000000;font-size:14px;font-family:sans-serif;font-style: Rubik;"href="/signup"><b>SIGNUP</b></a></span>                            </div>
+                        <% } %>
+                </nav>
+
+            </div>
+          
+        </div>
+        <div>
