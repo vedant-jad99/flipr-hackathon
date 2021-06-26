@@ -1,0 +1,45 @@
+.inline-photo {
+    border: 1em solid #fff;
+    border-bottom: 4em solid #fff;
+    border-radius: .25em;
+    box-shadow: 1em 1em 2em .25em rgba(0, 0, 0, .2);
+    opacity: 0;
+    transform: translateY(4em) rotateZ(-5deg);
+    transition: transform 4s .25s cubic-bezier(0, 1, .3, 1), opacity .3s .25s ease-out;
+    max-width: 600px;
+    width: 90%;
+    will-change: transform, opacity;
+    background-color: #000;
+}
+
+.inline-photo.is-visible {
+    opacity: 1;
+    transform: rotateZ(0deg);
+}
+
+
+#vertical-text{
+    height:60px;
+    overflow-y: auto;
+}
+
+#vertical-text{
+    height:80px;
+    overflow-y: auto;
+}
+#vertical-text a{
+    background-color:#eee;
+    color:black;
+    padding:12px;
+
+    text-decoration:none;
+}
+#vertical-text a:hover{
+    background-color:#ccc;
+}
+
+#vertical-text a:active{
+    background-color:#4caf50;
+    color:white;
+}
+
