@@ -42,6 +42,12 @@
                                             <% } %>
                                 </li>
 
+                                <li class="nav-item">
+                                    <% if(user) { %>
+                                        <a style="font-size: 16px ; color:rgb(7, 7, 7) ;font-style: Rubik;" class="nav-link" href="/logout">Logout</a>
+                                        <% } %>
+                                </li>
+
                             </ul>
 
                         </div>
@@ -49,6 +55,8 @@
                     <% if (!user){ %>
                         <div style="float: right"><span class="p-2"><a  style="border-style: solid;border-color:#000000;border-bottom-width:1px;border-top-width:0px;border-right-width:0px;border-left-width:0px;text-decoration: none;color:#000000;font-size:14px;font-family:sans-serif;font-style: Rubik;" href="/login"><b>LOGIN</b></a>|<a  style="border-style: solid;border-color:#000000;border-bottom-width:1px;border-top-width:0px;border-right-width:0px;border-left-width:0px;text-decoration: none;color:#000000;font-size:14px;font-family:sans-serif;font-style: Rubik;"href="/signup"><b>SIGNUP</b></a></span>                            </div>
                         <% } %>
+
+
                 </nav>
 
             </div>
