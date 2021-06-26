@@ -1,0 +1,96 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-0 col-md-4"></div>
+        <div class="col-sm-12 col-md-4">
+            <form class="p-4">
+                <label for="to">To: </label>
+                <input type="email" name="to" id="to_cell"  multiple><br>
+                <label for="cc">Cc: </label>
+                <input type="email" name="cc" id="cc_cell" multiple><br>
+                <label for="bcc">Bcc: </label>
+                <input type="email" name="bcc" id="bcc_cell"  multiple><br>
+                <label for="subject">Subject: </label>
+                <input type="text" name="subject" id="subject_cell"><br>
+                <label for="body">Body: </label>
+                <input type="text" name="body" id="subject_cell"><br>
+
+                <fieldset class="form-group">
+                    <div class="row">
+                      <legend class="col-form-label col-sm-2 pt-0">Schedule</legend>
+                      <div class="col-sm-10">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="schedule" id="schedule1" value="yearly" checked>
+                          <label class="form-check-label" for="schedule1">
+                            Yearly
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="schedule" id="schedule2" value="monthly">
+                          <label class="form-check-label" for="schedule2">
+                            Monthly
+                          </label>
+                        </div>
+                        <div class="form-check ">
+                          <input class="form-check-input" type="radio" name="schedule" id="schedule3" value="weekly" >
+                          <label class="form-check-label" for="schedule3">
+                            Weekly
+                          </label>
+                        </div>
+                        <div class="form-check ">
+                            <input class="form-check-input" type="radio" name="schedule" id="schedule3" value="30mins" >
+                            <label class="form-check-label" for="schedule4">
+                              30 mins
+                            </label>
+                          </div>
+                          <div class="form-check ">
+                            <input class="form-check-input" type="radio" name="schedule" id="20min" value="20mins" >
+                            <label class="form-check-label" for="schedule5">
+                              20 mins
+                            </label>
+                          </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <button>Send</button>
+            </form>
+        </div>
+        <div class="col-sm-0 col-md-4"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    const form = document.querySelector('form');
+    form.addEventListener('submit',async (e) => {
+        e.preventDefault();
+
+         
+        // Get all the input values
+        const to=form['to'].value;
+        const cc=form['cc'].value;
+        const bcc=form['bcc'].value;
+        const subject=form['subject'].value;
+        const schedule=form['schedule'].value;
+        const body=form['body'].value;
+        const from = "<%= user['email'] %>";
+        console.log(to);
+        console.log(cc);
+        console.log(bcc);
+        console.log(subject);
+        console.log(schedule);
+        console.log(body);
+        console.log(from);
+        
+        try{
+            const res =await fetch('/mail-save',{
+            method: 'POST',
+            body : JSON.stringify({"to":to,"from":from,"subject":subject,"cc":cc,"bcc":bcc,"body":body,"scheduleType":schedule,"sent":false}),
+            headers : {'Content-Type': 'application/json'}});
+            const data = await res.json();
+            if(data.mail){
+              location.assign('/maillist');
+            }
+        }catch(err){
+            console.log(err);
+            location.assign('/');
+        }
+    });
+</script>    

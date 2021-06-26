@@ -13,7 +13,7 @@ router.post('/forgot-password',authController.forgotpass_post );
 router.get('/change-password/:token',authController.changepass_get );
 router.post('/change-password',authController.changepass_post );
 router.get('/google',passport.authenticate('google',{
-    scope: ['profile'],
+    scope: ['profile','email'],
 }));
 router.get('/google/redirect',passport.authenticate('google'),(req,res) => {
     res.redirect("/");

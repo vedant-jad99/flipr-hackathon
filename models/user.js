@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
 })
 
 
-// The functios attached to user schema below are called mongoose hooks and they'll listen for any save function performed to Database just before saving and after saving 
+// The functions attached to user schema below are called mongoose hooks and they'll listen for any save function performed to Database just before saving and after saving 
 
 // Fires a function after a user saved to database
 userSchema.post('save', function(doc,next) {
