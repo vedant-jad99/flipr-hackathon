@@ -20,8 +20,9 @@
                         </div>
                         <% } %>
                 </div>
+                <div class="col-md-1"></div>
             </div>
-            <div class="col-md-1"></div>
+      
             <div>
                 <% if(user){ %>
                     <span style="font-size: 16px ; color: rgb(0, 0, 0);font-style: Rubik;">Welcome !! <%= user["email"] %> </span><a style="font-size: 16px ; color:blue ;font-style: Rubik;" class="nav-link" href="/logout">Logout</a>
@@ -40,8 +41,8 @@
                 </div>
             </div>
             <div class="row ">
-                <div class="col-sm-12 ">
-                    <div class="m-4 p-4" style="text-align:center;">
+                <div class="col-xs-12 col-sm-12 ">
+                    <div class=" p-4" style="text-align:center;">
                         <% if(!user){ %>
                             <div class="carousel-inner rounded-corners">
                                 <img class="d-block w-100" src="images/main.gif">
@@ -51,12 +52,7 @@
                                     <span><img src="images/flipr1.png"><img src="images/flipr2.png"></span>
                                     <p style="color:#000000;font-size:18px;font-family:sans-serif;font-style: Rubik;">Welcome to Flipr Mailer!! Send recurring mail, for anytime, at any interval! Sign up and schedule your mails now!! Sign up is free.</p>
                                     <% } %>
-                                        <div class="container-fluid">
-                                            <div class="row m-4">
-
-                                            </div>
-
-                                        </div>
+  
                     </div>
                 </div>
 
