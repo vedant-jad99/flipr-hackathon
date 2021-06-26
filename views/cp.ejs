@@ -1,0 +1,52 @@
+<%- include('partials/header'); -%>
+<form id="cp">
+    <h2>Change Password</h2>
+    <label for="password">New Password</label>
+    <input type="password" name="password" required></input>
+    <div class="password error"></div>
+    <button class="m-2">Change Password</button>     
+</form>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-lg-4 col-sm-0 col-xs-0 col-xl-4"></div>
+        <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xl-4 text-center">
+            <a href="/login" style="font-size: 40px; color: white;" class="p-4"><i class="fas fa-arrow-circle-left" ></i></a>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-0 col-xs-0 col-xl-4"></div>
+    </div>
+</div>
+<% var decodedtoken = token   %>
+<script type="text/javascript">
+    var decodedtoken = "<%= decodedtoken %>"
+    const form = document.querySelector('#cp');
+    const passwordError = document.querySelector('.password.error');
+    
+    form.addEventListener('submit',async (e) => {
+        e.preventDefault();
+        // reset errors
+        passwordError.textContent = '';
+
+        // Get all the input values
+        const password=form['password'].value;
+        try{
+            alert('Changed Password  : Now you can login or change the password again (this will not work after the session expires)');
+            const res =await fetch('/change-password',{
+            method: 'POST',
+            body : JSON.stringify({"token":decodedtoken,"password":password}),
+            headers : {'Content-Type': 'application/json'}});
+            const data = await res.json();
+            console.log(data);
+            if(data.errors){
+                passwordError.textContent = data.errors.password;
+            }
+            if(data.user){
+                alert('Changed Password');
+            }
+        }catch(err){
+            console.log(err);
+        }
+})
+
+</script>    
+<%- include('partials/footer'); -%>
