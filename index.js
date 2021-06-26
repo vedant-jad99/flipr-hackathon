@@ -9,6 +9,8 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const dotenv = require('dotenv');
 const cookieSession = require('cookie-session');
+const mailController = require('./controllers/mailController');
+
 dotenv.config();
 // middleware
 app.use(express.static(__dirname+'/public'));
@@ -35,3 +37,9 @@ app.get('*',checkUser);
 app.use(authRoutes);
 app.get('/', (req, res) => res.render('home'));
 app.get('/Contacts', requireAuth,(req, res) => res.render('contact'));
+app.get('/maillist', requireAuth,(req, res) => {
+  mails=[['a','b','c','a','b','c'],['d','e','f','a','b','c'],['g','h','i','a','b','c']]
+  res.render('maillist',mails);
+});
+
+app.post('/mail-save',mailController.mail_save);
