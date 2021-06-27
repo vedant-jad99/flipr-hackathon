@@ -24,6 +24,7 @@ This is a website which has a built in authentication system and a recurrent mai
 9) this feature implemented using node-scheduler and cron scheduled recurrently
 10) Used sendgrid API  to send mails      
 11) Finally deployed on HEROKU
+12) Note : For the mail service to work (the sender mail needs to be registered in sendgrid website)
 
 ## Steps to reproduce :
 
