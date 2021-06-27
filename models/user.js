@@ -4,9 +4,6 @@ const bcrypt = require('bcrypt');
 
 
 const userSchema = new mongoose.Schema({
-    username:{
-        type : String,
-        },
     email:{
         type : String,
         // Here I've added custom validation error message
@@ -27,7 +24,7 @@ const userSchema = new mongoose.Schema({
 })
 
 
-// The functions attached to user schema below are called mongoose hooks and they'll listen for any save function performed to Database just before saving and after saving 
+// The functios attached to user schema below are called mongoose hooks and they'll listen for any save function performed to Database just before saving and after saving 
 
 // Fires a function after a user saved to database
 userSchema.post('save', function(doc,next) {
@@ -83,7 +80,7 @@ userSchema.statics.user_findby_email = async function(email){
     const user = await this.findOne({"email": email});
     if(user){
         return user;       
-    }else{
+    } else{
         throw new Error('Incorrect Email')
     }
 }

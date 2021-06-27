@@ -10,7 +10,10 @@ const mailSchema = new Schema({
     bcc:String,
     body:String,
     scheduleType:String,
+    sdate: String,
     sent: Boolean,
+    sent_count : Number,
+    last_mail_sent : String
 });
 
 const Mail = mongoose.model('mails', mailSchema);
