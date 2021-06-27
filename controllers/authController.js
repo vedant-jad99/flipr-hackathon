@@ -1,8 +1,6 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken')
 const sgMail = require('@sendgrid/mail');
-
-var check_login_signup;
 SENDGRID_API_KEY=process.env.SENDGRID_API_KEY
 sgMail.setApiKey(SENDGRID_API_KEY)
 
@@ -38,9 +36,9 @@ const handleErrors = (err) => {
 
 // Create JWT
  // Our JWT token stored as cookie in browser will be valid for maxAge (currently : 3 days)
-const maxAge = 3*24*60*60;
+const maxAge = "3*24*60*60";
  const createToken = (id,mAge) => {
-    return jwt.sign({id}, process.env.JWT_SECRET,{expiresIn:mAge })    
+    return jwt.sign({id}, process.env.JWT_SECRET,{expiresIn:maxAge })    
 };
 const createLink = (token) => {
     return "https://midas-authentication.herokuapp.com/change-password/".concat(token);    
@@ -58,7 +56,9 @@ module.exports.login_get = (req, res) =>{
 }
 
 module.exports.signup_post = async (req, res) =>{
-    const {username,email,password} = req.body;
+    const username = req.body["username"];
+    const email = req.body["email"];
+    const password = req.body["password"];
     try {
         const user = await User.create({username:username,email: email, password: password});
         const token = createToken(user["_id"]);
@@ -66,6 +66,7 @@ module.exports.signup_post = async (req, res) =>{
         return res.status(201).json({user : user._id});
     } 
     catch(err){
+        console.log(err);
         const errors = handleErrors(err);
         return res.status(400).json({errors});
     }
@@ -135,8 +136,7 @@ module.exports.forgotpass_post = async (req, res) =>{
 }
 
 
-module.exports.changepass_get = (req, res) =>{
-    var token = req.params['token'];
+module.exports.changepass_get = (req, res) =>{var token = req.params['token'];
     jwt.verify(token,process.env.JWT_SECRET,(err,decodedToken) => {
         if(err){
             console.log(err);
