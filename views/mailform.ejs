@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-0 col-md-4"></div>
         <div class="col-sm-12 col-md-4">
-            <form class="p-4">
+            <form class="p-4 " >
                 <label for="to">To: </label>
                 <input type="email" name="to" id="to_cell"  multiple><br>
                 <label for="cc">Cc: </label>
@@ -13,44 +13,21 @@
                 <input type="text" name="subject" id="subject_cell"><br>
                 <label for="body">Body: </label>
                 <input type="text" name="body" id="subject_cell"><br>
-
-                <fieldset class="form-group">
-                    <div class="row">
-                      <legend class="col-form-label col-sm-2 pt-0">Schedule</legend>
-                      <div class="col-sm-10">
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="schedule" id="schedule1" value="yearly" checked>
-                          <label class="form-check-label" for="schedule1">
-                            Yearly
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="schedule" id="schedule2" value="monthly">
-                          <label class="form-check-label" for="schedule2">
-                            Monthly
-                          </label>
-                        </div>
-                        <div class="form-check ">
-                          <input class="form-check-input" type="radio" name="schedule" id="schedule3" value="weekly" >
-                          <label class="form-check-label" for="schedule3">
-                            Weekly
-                          </label>
-                        </div>
-                        <div class="form-check ">
-                            <input class="form-check-input" type="radio" name="schedule" id="schedule3" value="30mins" >
-                            <label class="form-check-label" for="schedule4">
-                              30 mins
-                            </label>
-                          </div>
-                          <div class="form-check ">
-                            <input class="form-check-input" type="radio" name="schedule" id="20min" value="20mins" >
-                            <label class="form-check-label" for="schedule5">
-                              20 mins
-                            </label>
-                          </div>
-                      </div>
-                    </div>
-                  </fieldset>
+                <label for="scheduleddate">Enter Date: </label>
+                <input type="text" name="scheduleddate" id="scheduleddate" placeholder="Jul-13 17:56:22"><br>
+                
+               <!-- <label for="date">Date: </label>
+                <input type="date" id="date" name="date" required>
+                <label for="time">Time: </label>
+                <input type="time" id="time" name="time" required> -->
+                <label for="schedules" style="margin-bottom:20px; margin-right: 2px">Select Schedule:</label>
+                <select id="schedules" name="select_sched" style="width:max-content">
+                  <option value="recurring_20">Recurring_20</option>
+                  <option value="recurring_30">Recurring_30</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
                   <button>Send</button>
             </form>
         </div>
@@ -62,15 +39,18 @@
     form.addEventListener('submit',async (e) => {
         e.preventDefault();
 
-         
+        
+        
         // Get all the input values
         const to=form['to'].value;
         const cc=form['cc'].value;
         const bcc=form['bcc'].value;
         const subject=form['subject'].value;
-        const schedule=form['schedule'].value;
+        const s_id = form['schedules']
+        const schedule = s_id.options[s_id.selectedIndex].text
         const body=form['body'].value;
         const from = "<%= user['email'] %>";
+        const sdate = form["scheduleddate"].value;
         console.log(to);
         console.log(cc);
         console.log(bcc);
@@ -78,11 +58,12 @@
         console.log(schedule);
         console.log(body);
         console.log(from);
+        console.log(sdate);
         
         try{
             const res =await fetch('/mail-save',{
             method: 'POST',
-            body : JSON.stringify({"to":to,"from":from,"subject":subject,"cc":cc,"bcc":bcc,"body":body,"scheduleType":schedule,"sent":false}),
+            body : JSON.stringify({"to":to,"from":from,"subject":subject,"cc":cc,"bcc":bcc,"body":body,"scheduleType":schedule,"sdate":sdate,"sent":false}),
             headers : {'Content-Type': 'application/json'}});
             const data = await res.json();
             if(data.mail){

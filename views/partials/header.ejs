@@ -4,65 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Flipr Mailer</title>
+    <title> Mailer</title>
     <link rel="stylesheet"type="text/css" href="css/home.css">
     <link rel="stylesheet"type="text/css" href="css/form.css">
     <link rel="stylesheet" type="text/css" href="css/maillist.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/b2f007fa24.js" crossorigin="anonymous"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 </head>
 
 <body style="background-image: url('/images/bg1.jpg'); background-repeat:no-repeat; background-size:cover">
 
-    <div class="container-fluid">
-        <div class="row">
-            <div>
-                <nav class="navbar navbar-expand-lg navbar-light ">
-                    <div class="container-fluid ">
-                        <a class="navbar-brand " href="/"><img src="/images/logo.png" width="140" height="140" class="d-inline-block align-top img-fluid" alt="logo"></a>
-
-                        <div class="collapse navbar-collapse m-2 " id="navbarText">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link text-style" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 16px ; color: rgb(0, 0, 0);font-style: Rubik;">
-              Home
-              <i class="fas fa-angle-down"></i>
-            </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item text-style" href="#">Section-1</a>
-                                        <a class="dropdown-item text-style" href="#">Section-2</a>
-                                    </div>
-                                </li>
-
-                                <li class="nav-item">
-                                    <% if(user){ %>
-                                        <a class="nav-link text-style" href="Contacts" style="font-size: 16px ; color: rgb(0, 0, 0);font-style: Rubik;">Contacts <i class="fas fa-lock-open"></i></a>
-                                        <% } else { %>
-                                            <a class="nav-link text-style" href="Contacts" style="font-size: 16px ; color: rgb(0, 0, 0);font-style: Rubik;">Contacts <i class="fas fa-lock"></i></a>
-                                            <% } %>
-                                </li>
-
-                                <li class="nav-item">
-                                    <% if(user) { %>
-                                        <a style="font-size: 16px ; color:rgb(7, 7, 7) ;font-style: Rubik;" class="nav-link" href="/logout">Logout</a>
+    
+                <nav class="navbar navbar-expand-custom navbar-mainbg">
+                    <a class="navbar-brand navbar-logo" href="#">Mailer</a>
+                    <button class="navbar-toggler navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars text-white"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+                            <li class="nav-item active">
+                                <a class="nav-link"  style="color: #000" href="/"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                            </li>
+                            <li class="nav-item ">
+                                <% if(user){ %>
+                                    <a class="nav-link"  style="color: #000"  href="/mailpage"><i class="far fa-calendar"></i>Mail Scheduler <i class="fas fa-lock-open"></i></a>
+                                    <% } else { %>
+                                        <a class="nav-link"  style="color: #000" href="/mailpage"><i class="far fa-calendar"></i>Mail Scheduler <i class="fas fa-lock"></i></a>
+                                
                                         <% } %>
-                                </li>
-
-                            </ul>
-
-                        </div>
+                            </li>
+                            <li class="nav-item">
+                                <% if(user){ %>
+                                <a class="nav-link"  style="color: #000" href="/maillist"><i class="far fa-address-book"></i>History <i class="fas fa-lock-open"></i></a>
+                                <% } else { %>
+                                    <a class="nav-link"  style="color: #000" href="/maillist"><i class="far fa-address-book"></i>History <i class="fas fa-lock"></i></a>
+                                    <% } %>
+                       
+                            </li>
+                            <% if(!user){ %>
+                                
+                            <li class="nav-item">
+                                    <a class="nav-link"  style="color: #000" href="/login"><i class="far fa-sign-in-alt"></i>Login</a>
+                                     </li>
+                            <li class="nav-item">
+                                    <a class="nav-link"  style="color: #000" href="/signup"><i class="far fa-user-plus"></i>Signup</a>
+                            </li>
+                            <% }else{ %>
+                                <li class="nav-item">
+                                    <a class="nav-link"  style="color: #000" href="/logout"><i class="far fa-sign-out-alt"></i>Logout
+                                            <% if(user.thumbnail){ %>
+                                              <img style="width:20px;height:20px;" src="<%= user.thumbnail %>" class="img-fluid" >   
+                                            <% } %>
+                                    </a>
+                                     </li>
+                                <% } %>
+                          </ul>
                     </div>
-                    <% if (!user){ %>
-                        <div style="float: right"><span class="p-2"><a  style="border-style: solid;border-color:#000000;border-bottom-width:1px;border-top-width:0px;border-right-width:0px;border-left-width:0px;text-decoration: none;color:#000000;font-size:14px;font-family:sans-serif;font-style: Rubik;" href="/login"><b>LOGIN</b></a>|<a  style="border-style: solid;border-color:#000000;border-bottom-width:1px;border-top-width:0px;border-right-width:0px;border-left-width:0px;text-decoration: none;color:#000000;font-size:14px;font-family:sans-serif;font-style: Rubik;"href="/signup"><b>SIGNUP</b></a></span>                            </div>
-                        <% } %>
-
-
                 </nav>
 
-            </div>
-
-        </div>
-        <div>
+<script>
+    // ---------Responsive-navbar-active-animation-----------
+function test(){
+  var tabsNewAnim = $('#navbarSupportedContent');
+  var selectorNewAnim = $('#navbarSupportedContent').find('li').length;
+  var activeItemNewAnim = tabsNewAnim.find('.active');
+  var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+  var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+  var itemPosNewAnimTop = activeItemNewAnim.position();
+  var itemPosNewAnimLeft = activeItemNewAnim.position();
+  $(".hori-selector").css({
+    "top":itemPosNewAnimTop.top + "px", 
+    "left":itemPosNewAnimLeft.left + "px",
+    "height": activeWidthNewAnimHeight + "px",
+    "width": activeWidthNewAnimWidth + "px"
+  });
+  $("#navbarSupportedContent").on("click","li",function(e){
+    $('#navbarSupportedContent ul li').removeClass("active");
+    $( this ).parent( 'li' ).addClass( 'active' );
+    var activeWidthNewAnimHeight = $(this).innerHeight();
+    var activeWidthNewAnimWidth = $(this).innerWidth();
+    var itemPosNewAnimTop = $(this).position();
+    var itemPosNewAnimLeft = $(this).position();
+    $(".hori-selector").css({
+      "top":itemPosNewAnimTop.top + "px", 
+      "left":itemPosNewAnimLeft.left + "px",
+      "height": activeWidthNewAnimHeight + "px",
+      "width": activeWidthNewAnimWidth + "px"
+    });
+  });
+}
+$(document).ready(function(){
+  setTimeout(function(){ test(); });
+});
+$(window).on('resize', function(){
+  setTimeout(function(){ test(); }, 100);
+});
+$(".navbar-toggler").click(function(){
+  setTimeout(function(){ test(); });
+});
+</script>            

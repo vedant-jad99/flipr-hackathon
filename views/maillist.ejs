@@ -1,16 +1,27 @@
 
 <%- include('partials/header'); -%>
+
  <div class="container">
+  <div class="row">
+    <div class="col-sm-4"> </div>
+    <div class="col-sm-4" style="text-align:center;">
+      <!-- Rectangular switch -->
+        <h1>Sent</h1>
+      
+    </div>
+    <div class="col-sm-4"></div>
+ </div>
     <div class="row">
         <% for (var i=0;i<mails.length;i++){ %>
+          <% if(mails[i]["sent"]===true){ %>
             <div class="col-sm-12 col-md-12 col-lg-12 inline-photo show-on-scroll p-1 ml-1 mr-1 mt-3 mb-3 ">
                 <div class="card text-center">
                     <div class="card-header">
-                      To : Vedant
+                      To : <%= mails[i]["to"] %>
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title">Subject : Going out</h5>
-                      <p class="card-text" id="vertical-text">With supporting text below as a natural lead-in to additional content.With supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional content.With supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional content.With supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional content.With supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional content.With supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional content.With supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional content.With supporting text below as a natural lead-in to additional contentWith supporting text below as a natural lead-in to additional content</p>
+                      <h5 class="card-title">Subject : <%= mails[i]["subject"] %> </h5>
+                      <p class="card-text" id="vertical-text"><%= mails[i]["body"] %></p>
                      <!-- Split dropright button -->
                      <div class="row">
                          <div class ="col-4">
@@ -18,11 +29,11 @@
                                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 CC
                                 </a>
-                            
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <% var array_cc = mails[i]["cc"].split(','); %>
+                                <% for(j=0;j<array_cc.length;j++){ %>
+                                  <p class="dropdown-item" style="background-color:#b7b6ba"> <%= array_cc[j] %></a> 
+                                 <% } %> 
                                 </div>
                             </div>
                     </div>
@@ -32,24 +43,35 @@
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           BCC
                         </a>
-                      
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                          <% var array_bcc = mails[i]["bcc"].split(','); %>
+                          <% for(j=0;j<array_bcc.length;j++){ %>
+                            <p class="dropdown-item"  style="background-color:#b7b6ba" > <%= array_bcc[j] %></a> 
+                           <% } %> 
+                          </div>
                       </div>
                     </div>
                     </div>
                     </div>
-                    <!-- if(mails[i]["sent"]==True){ -->
                     <div class="card-footer text-muted">
-                      2 days ago
+                      Type : <%= mails[i]["scheduleType"] %>   
+                    </div>
+                    <div class="card-footer text-muted">
+                      Last sent : <%= mails[i]["last_mail_sent"] %>   
+                    </div>
+                    <div class="card-footer text-muted">
+                      Times Sent : <%= mails[i]["sent_count"] %>   
                     </div>
                   </div>
             </div>
             <% } %>
+            <% } %>
     </div>
 </div>
+
+
+<script type="text/babel">
+
+</script>
 
 <%- include('partials/footer'); -%>

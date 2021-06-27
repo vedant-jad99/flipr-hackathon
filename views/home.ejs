@@ -4,41 +4,31 @@
             <div class="row ">
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
-                    <% if(!user){ %>
+                   
                         <div class="carousel-inner rounded-corners">
                             <img class="d-block w-100" src="images/main.gif">
                         </div>
-                        <% } %>
+                   
                 </div>
                 <div class="col-md-5 ">
-                    <% if(!user){ %>
                         <div id="text" class="m-2 p-2" style="text-align:center;">
 
-                            <span><img src="images/flipr1.png"><img src="images/flipr2.png"></span>
-                            <p style="color:#000000;font-size:18px;font-family:sans-serif;font-style: Rubik;"> Welcome to Flipr Mailer!! Send recurring mail, for anytime, at any interval! Sign up and schedule your mails now!! Sign up is free.</p>
+                            <span><img src="images/f1.png"><img src="images/f2.png"></span>
+                            <p style="color:#000000;font-size:18px;font-family:sans-serif;font-style: Rubik;"> Welcome to  Mailer!! Send recurring mail, for anytime, at any interval! Sign up and schedule your mails now!! Sign up is free.</p>
 
                         </div>
-                        <% } %>
+                   
                 </div>
                 <div class="col-md-1"></div>
             </div>
 
-            <div>
-                <% if(user){ %>
-                    <span style="font-size: 16px ; color: rgb(0, 0, 0);font-style: Rubik;">Welcome !! <%= user["email"] %> </span><a style="font-size: 16px ; color:blue ;font-style: Rubik;" class="nav-link" href="/logout">Logout ! <%= user.username %></a>
-                    <% if(user.thumbnail){ %>
-                      <img src="<%= user.thumbnail %>" class="img-fluid" >   
-                    <% } %>
-                <% } %>
-            </div>
-            <% if (user) { %>
-                <button style="background-color: rgba(117, 170, 255, 0.685); color:aliceblue; font-size:small"><i class="fa fa-envelope-open-o"></i> Create Mail</button>
-                <% } %>
+        
+           
         </div>
 
     </div>
 
-    </div>
+    
     <div class="d-block d-lg-none">
         <div class="container-fluid">
             <div class="row ">
@@ -49,16 +39,12 @@
             <div class="row ">
                 <div class="col-xs-12 col-sm-12 ">
                     <div class=" p-4" style="text-align:center;">
-                        <% if(!user){ %>
                             <div class="carousel-inner rounded-corners">
                                 <img class="d-block w-100" src="images/main.gif">
                             </div>
-                            <% } %>
-                                <% if(!user){ %>
-                                    <span><img src="images/flipr1.png"><img src="images/flipr2.png"></span>
-                                    <p style="color:#000000;font-size:18px;font-family:sans-serif;font-style: Rubik;">Welcome to Flipr Mailer!! Send recurring mail, for anytime, at any interval! Sign up and schedule your mails now!! Sign up is free.</p>
-                                    <% } %>
-
+                                    <span><img src="images/f1.png"><img src="images/f2.png"></span>
+                                    <p style="color:#000000;font-size:18px;font-family:sans-serif;font-style: Rubik;">Welcome to Mailer!! Send recurring mail, for anytime, at any interval! Sign up and schedule your mails now!! Sign up is free.</p>
+                   
                     </div>
                 </div>
 
@@ -66,7 +52,66 @@
         </div>
     </div>
 
-  <% if(user){ %>
-    <%- include('mailform'); -%>    
-<% } %>
+    <% if(locals.mails){ %>
+    <div class="container">
+        <div class="row">
+          <div class="col-sm-4"> </div>
+          <div class="col-sm-4" style="text-align:center;">
+            <!-- Rectangular switch -->
+              <h1>To be Sent : </h1>
+            
+          </div>
+          <div class="col-sm-4"></div>
+       </div>
+          <div class="row">
+              <% for (var i=0;i<mails.length;i++){ %>
+                  <div class="col-sm-12 col-md-12 col-lg-12 inline-photo show-on-scroll p-1 ml-1 mr-1 mt-3 mb-3 ">
+                      <div class="card text-center">
+                          <div class="card-header">
+                            To : <%= mails[i]["to"] %>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title">Subject : <%= mails[i]["subject"] %> </h5>
+                            <p class="card-text" id="vertical-text"><%= mails[i]["body"] %></p>
+                           <!-- Split dropright button -->
+                           <div class="row">
+                               <div class ="col-4">
+                                  <div class="dropdown mt-1 mb-1 ml-2 mr-5">
+                                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      CC
+                                      </a>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                      <% var array_cc = mails[i]["cc"].split(','); %>
+                                      <% for(j=0;j<array_cc.length;j++){ %>
+                                        <p class="dropdown-item" style="background-color:#b7b6ba"> <%= array_cc[j] %></a> 
+                                       <% } %> 
+                                      </div>
+                                  </div>
+                          </div>
+                          <div class="col-4"></div>
+                          <div class="col-4">
+                            <div class="dropdown mt-1 mb-1 ml-2 mr-5">
+                              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                BCC
+                              </a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <% var array_bcc = mails[i]["bcc"].split(','); %>
+                                <% for(j=0;j<array_bcc.length;j++){ %>
+                                  <p class="dropdown-item"  style="background-color:#b7b6ba" > <%= array_bcc[j] %></a> 
+                                 <% } %> 
+                                </div>
+                            </div>
+                          </div>
+                          </div>
+                          </div>
+                          <div class="card-footer text-muted">
+                            Type : <%= mails[i]["scheduleType"] %>   
+                          </div>
+                          
+                        </div>
+                  </div>
+                  <% } %>
+          </div>
+      </div>
+      <% } %>
     <%- include('partials/footer'); -%>
